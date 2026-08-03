@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Create Activity | Productivity Tracker
+{% endblock %}{% block body %}
+<header class="site-header">
+    <div>
+        <h1>Create Activity</h1>
+        <p class="muted">Add a new entry to your productivity log.</p>
+    </div>
+    <nav>
+        <a class="button secondary" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="button danger" href="{{ url_for('logout') }}">Log Out</a>
+    </nav>
+</header>
+<main class="page-container narrow">
+    <section class="content-card">{% include "messages.html" %}
+        <form method="post">
+            <label>Activity Name</label>
+            <input name="activity_name" placeholder="Study for cloud computing exam" required>
+            <label>Category</label>
+            <select name="category">{% for c in categories %}
+                <option>{{ c }}</option>{% endfor %}
+            </select>
+            <label>Importance Level</label>
+            <select name="importance_level">{% for l in importance_levels %}
+                <option {% if l=="Medium" %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+            <label>Duration in Minutes</label>
+            <input name="duration_minutes" type="number" min="1" max="1440" required>
+            <label>Date</label>
+            <input name="activity_date" type="date" value="{{ today }}" required>
+            <div class="form-actions">
+                <a class="button secondary" href="{{ url_for('dashboard') }}">Cancel</a>
+                <button>Save Activity</button>
+            </div>
+        </form>
+    </section>
+</main>{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Productivity Tracker{% endblock %}
+{% block body %}
+<header class="site-header">
+    <div>
+        <h1>Activity Dashboard</h1>
+        <p class="muted">Welcome, {{ session["username"] }}.</p>
+    </div>
+    <nav>
+        <a class="button secondary" href="{{ url_for('create_activity') }}">Add Activity</a>
+        <a class="button danger" href="{{ url_for('logout') }}">Log Out</a>
+    </nav>
+</header>
+<main class="page-container">{% include "messages.html" %}
+    <section class="summary-grid">
+        <article class="summary-card">
+            <h2>{{ activities|length }}</h2>
+            <p>Total activities</p>
+        </article>
+        <article class="summary-card">
+            <h2>{{ total_minutes }}</h2>
+            <p>Total minutes</p>
+        </article>
+        <article class="summary-card">
+            <h2>{{ high_importance }}</h2>
+            <p>High-importance activities</p>
+        </article>
+    </section>
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <h2>Your Activities</h2>
+                <p class="muted">Newest entries are displayed first.</p>
+            </div>
+            <a class="button" href="{{ url_for('create_activity') }}">Create Activity</a>
+        </div>{% if activities %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Category</th>
+                        <th>Importance</th>
+                        <th>Duration</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>{% for a in activities %}
+                    <tr>
+                        <td>{{ a["activity_name"] }}</td>
+                        <td>{{ a["category"] }}</td>
+                        <td>
+                            <span class="priority {{ a['importance_level']|lower }}">{{ a["importance_level"] }}</span>
+                        </td>
+                        <td>{{ a["duration_minutes"] }} minutes</td>
+                        <td>{{ a["activity_date"] }}</td>
+                    </tr>{% endfor %}
+                </tbody>
+            </table>
+        </div>{% else %}
+        <div class="empty-state">
+            <div class="illustration">✓</div>
+            <h3>No activities yet</h3>
+            <p>Create your first activity to begin tracking productivity.</p>
+        </div>{% endif %}
+    </section>
+</main>{% endblock %}

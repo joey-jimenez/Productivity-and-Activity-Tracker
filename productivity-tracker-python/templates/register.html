@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Register | Productivity Tracker{% endblock %}{% block body %}
+<main
+    class="auth-page">
+    <section class="auth-card">
+        <h1>Create Account</h1>
+        <p class="muted">Register to begin logging activities.</p>{% include "messages.html" %}
+        <form method="post">
+            <label>Username</label>
+            <input name="username" required>
+            <label>Password</label>
+            <input name="password" type="password" required>
+            <label>Confirm Password</label>
+            <input name="confirm_password" type="password" required>
+            <button>Create Account</button>
+        </form>
+        <p class="center">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+    </section>
+</main>{% endblock %}

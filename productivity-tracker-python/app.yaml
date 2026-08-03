@@ -1,0 +1,7 @@
+runtime: python314
+
+entrypoint: gunicorn -b :$PORT main:app
+
+env_variables:
+  DATA_BACKEND: "firestore"
+  SECRET_KEY: "replace-this-with-a-long-random-secret"
